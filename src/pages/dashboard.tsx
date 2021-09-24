@@ -1,22 +1,40 @@
+import React, { useState } from 'react';
+import { RiAddLine, RiEdit2Fill, RiDeleteBinFill } from 'react-icons/ri';
+
 import {
+  Badge,
   Box,
+  Button,
+  Checkbox,
   Flex,
   Heading,
+  HStack,
   Table,
-  Thead,
-  Tr,
-  Th,
   Tbody,
   Td,
-  Button,
-  HStack,
   Text,
+  Th,
+  Thead,
+  Tr,
   useBreakpointValue,
+  Icon,
 } from '@chakra-ui/react';
 
 import { Header } from '~/components/Header';
+import { ModalTask } from '~/components/ModalTask';
+import { ModalAddTask } from '~/components/ModalTask/ModalAddTask';
 
 export default function Dashboard() {
+  const [isInfoTaskModalOpen, setIsInfoTaskModalOpen] = useState(false);
+  const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
+
+  function handleCloseInfoUserModal() {
+    setIsInfoTaskModalOpen(false);
+  }
+  function handleCloseAddTaskModal() {
+    setAddTaskModalOpen(false);
+  }
+
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
@@ -32,69 +50,98 @@ export default function Dashboard() {
         maxWidth={1480}
         borderRadius="8"
         mt="8"
-        p={['2', '8']}
+        p={['4', '8']}
         mx="auto"
       >
-        <Flex mb="8" justify="center" align="center">
-          <Heading size="lg" fontWeight="normal">
-            Users
+        <Flex mb="4" justify="space-between" align="center">
+          <Heading size="lg" fontWeight="bold">
+            Tarefas
           </Heading>
+          <Button
+            as="a"
+            size="sm"
+            fontSize="sm"
+            colorScheme="green"
+            onClick={() => {
+              setAddTaskModalOpen(true);
+            }}
+            leftIcon={<Icon as={RiAddLine} fontSize="20" />}
+          >
+            Nova tarefa
+          </Button>
         </Flex>
 
         <Table>
           <Thead>
             <Tr>
-              <Th>Name</Th>
-              {isWideVersion && <Th>Gender</Th>}
-              {isWideVersion && <Th>Birth</Th>}
-              <Th>Actions</Th>
+              <Th px={['4', '4', '6']} color="gray.300" w="8">
+                <Checkbox colorScheme="pink" />
+              </Th>
+              <Th>Tarefa</Th>
+              {isWideVersion && <Th>Data de Atualização</Th>}
+              {isWideVersion && <Th>Status</Th>}
+              <Th>Ações</Th>
             </Tr>
           </Thead>
           <Tbody>
             <Tr>
+              <Td px={['4', '4', '6']}>
+                <Checkbox colorScheme="pink" />
+              </Td>
               <Td>
                 <Box>
-                  <Text fontWeight="bold">Kevin</Text>
+                  <Text fontWeight="bold">Terminar o projeto</Text>
                   <Text fontSize="sm" color="gray.500">
-                    email
+                    Kevin
                   </Text>
                 </Box>
               </Td>
-              {isWideVersion && <Td>Genero</Td>}
               {isWideVersion && <Td>Data</Td>}
+              {isWideVersion && (
+                <Td>
+                  <Badge variant="solid" colorScheme="yellow">
+                    Pendente
+                  </Badge>
+                </Td>
+              )}
               <Td>
-                <Button
-                  size="sm"
-                  fontSize="sm"
-                  bg="green.400"
-                  // onClick={() => {
-                  //   setCurrentUser(user);
-                  //   setIsInfoUserModalOpen(true);
-                  // }}
-                >
-                  <HStack spacing="1">
-                    {isWideVersion && <Text>Info</Text>}
-                  </HStack>
-                </Button>
+                <HStack>
+                  <Button
+                    size="sm"
+                    fontSize="sm"
+                    colorScheme="green"
+                    leftIcon={<Icon as={RiEdit2Fill} />}
+                    onClick={() => {
+                      setIsInfoTaskModalOpen(true);
+                    }}
+                  >
+                    <HStack spacing="1">
+                      {isWideVersion && <Text>Editar</Text>}
+                    </HStack>
+                  </Button>
+                  <Button
+                    size="sm"
+                    fontSize="sm"
+                    colorScheme="red"
+                    leftIcon={<Icon as={RiDeleteBinFill} />}
+                  >
+                    <HStack spacing="1">
+                      {isWideVersion && <Text>Deletar</Text>}
+                    </HStack>
+                  </Button>
+                </HStack>
               </Td>
             </Tr>
           </Tbody>
         </Table>
-
-        <Flex justify="center" pt="8">
-          <Button
-            size="md"
-            fontSize="md"
-            bg="green.400"
-            // onClick={() => {
-            //   updatePage(currentPage + 1);
-            // }}
-          >
-            <HStack spacing="1">
-              {isWideVersion && <Text>Load more...</Text>}
-            </HStack>
-          </Button>
-        </Flex>
+        <ModalTask
+          isOpen={isInfoTaskModalOpen}
+          onClose={handleCloseInfoUserModal}
+        />
+        <ModalAddTask
+          isOpen={addTaskModalOpen}
+          onClose={handleCloseAddTaskModal}
+        />
       </Box>
     </>
   );

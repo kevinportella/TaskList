@@ -5,7 +5,6 @@ import { Flex, Icon, IconButton, useBreakpointValue } from '@chakra-ui/react';
 import { Logo } from './Logo';
 import { NotificationsNav } from './NotificationsNav';
 import { Profile } from './Profile';
-import { SearchBox } from './SearchBox';
 
 export function Header() {
   const isWideVersion = useBreakpointValue({
@@ -34,8 +33,6 @@ export function Header() {
         ></IconButton>
       )}
       <Logo />
-
-      {isWideVersion && <SearchBox />}
 
       <Flex align="center" ml="auto">
         <NotificationsNav />
