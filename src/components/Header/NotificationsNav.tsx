@@ -1,4 +1,4 @@
-import { RiNotificationLine } from 'react-icons/ri';
+import { RiNotificationLine, RiLogoutCircleLine } from 'react-icons/ri';
 
 import { HStack, Icon } from '@chakra-ui/react';
 
@@ -14,6 +14,7 @@ export function NotificationsNav() {
       borderColor="gray.700"
     >
       <Icon as={RiNotificationLine} fontSize="20" />
+      <Icon type="button" as={RiLogoutCircleLine} fontSize="20" />
     </HStack>
   );
 }

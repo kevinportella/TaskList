@@ -90,7 +90,7 @@ export default function Dashboard() {
               </Td>
               <Td>
                 <Box>
-                  <Text fontWeight="bold">Terminar o projeto</Text>
+                  <Text fontWeight="bold">Tarefa</Text>
                   <Text fontSize="sm" color="gray.500">
                     Kevin
                   </Text>
