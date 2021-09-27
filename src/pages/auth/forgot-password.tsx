@@ -24,12 +24,11 @@ import { useLoading } from '~/hooks/loading';
 
 const signInFormSchema = yup.object({
   email: yup.string().email('E-mail inválido.').required('E-mail obrigatório.'),
-  password: yup.string().required('Senha obrigatório.'),
 });
 
 type ISignInForm = yup.Asserts<typeof signInFormSchema>;
 
-export default function Home() {
+export default function ForgotPassword() {
   const { register, handleSubmit, formState } = useForm<ISignInForm>({
     resolver: yupResolver(signInFormSchema),
     reValidateMode: 'onBlur',
@@ -39,18 +38,16 @@ export default function Home() {
   const router = useRouter();
   const { setLoading } = useLoading();
 
-  const handleSignIn: SubmitHandler<ISignInForm> = async (data) => {
+  const handleReset: SubmitHandler<ISignInForm> = async (data) => {
     setLoading(true);
 
     try {
-      await firebase
-        .auth()
-        .signInWithEmailAndPassword(data.email, data.password);
+      await firebase.auth().sendPasswordResetEmail(data.email);
 
-      router.push('/dashboard');
+      router.push('/');
     } catch (err) {
       toast({
-        title: 'Erro no login',
+        title: 'Failed to reset password',
         description: `${err.message}`,
         status: 'error',
         duration: 7000,
@@ -65,13 +62,10 @@ export default function Home() {
     <Flex w="100vw" h="100vh" align="center" justify="center">
       <Stack spacing="8" maxW={['md', 'lg']}>
         <Stack align="center">
-          <Heading fontSize={['3xl', '4xl']}>Entre na sua conta</Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            para aproveitar todos os recursos ✌️
-          </Text>
+          <Heading fontSize={['3xl', '4xl']}>Reset sua senha</Heading>
         </Stack>
         <Box bg="gray.800" rounded={'lg'} boxShadow={'lg'} p={8}>
-          <form onSubmit={handleSubmit(handleSignIn)}>
+          <form onSubmit={handleSubmit(handleReset)}>
             <Stack spacing={4}>
               <FormControl isInvalid={!!formState.errors?.email}>
                 <FormLabel>Endereço de e-mail</FormLabel>
@@ -90,57 +84,15 @@ export default function Home() {
                   {formState.errors.email?.message}
                 </FormErrorMessage>
               </FormControl>
-
-              <FormControl isInvalid={!!formState.errors?.password}>
-                <FormLabel>Senha</FormLabel>
-                <Input
-                  focusBorderColor="blue.200"
-                  bgColor="gray.900"
-                  variant="filled"
-                  _hover={{
-                    bgColor: 'gray.900',
-                  }}
-                  type="password"
-                  id="inputPassword"
-                  {...register('password', { required: true })}
-                />
-                <FormErrorMessage>
-                  {formState.errors.password?.message}
-                </FormErrorMessage>
-              </FormControl>
               <Text align="center" fontSize="sm">
                 <NextLink href="/auth/forgot-password" passHref>
-                  <a>Esqueceu sua senha?</a>
+                  <a>Login?</a>
                 </NextLink>
               </Text>
               <Stack spacing={6}>
                 <Button colorScheme="blue" type="submit">
-                  Entrar
+                  Enviar
                 </Button>
-
-                <Flex
-                  align={'center'}
-                  _before={{
-                    content: '""',
-                    borderBottom: '1px solid',
-                    flexGrow: 1,
-                    mr: 8,
-                  }}
-                  _after={{
-                    content: '""',
-                    borderBottom: '1px solid',
-                    flexGrow: 1,
-                    ml: 8,
-                  }}
-                >
-                  Ou
-                </Flex>
-
-                <NextLink href="/auth/sign-up" passHref>
-                  <Button as="a" colorScheme="teal">
-                    Criar conta
-                  </Button>
-                </NextLink>
               </Stack>
             </Stack>
           </form>

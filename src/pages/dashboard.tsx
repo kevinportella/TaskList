@@ -23,16 +23,21 @@ import {
 import { Header } from '~/components/Header';
 import { ModalTask } from '~/components/ModalTask';
 import { ModalAddTask } from '~/components/ModalTask/ModalAddTask';
+import { ModalEditTask } from '~/components/ModalTask/ModalEditTask';
 
 export default function Dashboard() {
   const [isInfoTaskModalOpen, setIsInfoTaskModalOpen] = useState(false);
   const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
+  const [editTaskModalOpen, setEditTaskModalOpen] = useState(false);
 
   function handleCloseInfoUserModal() {
     setIsInfoTaskModalOpen(false);
   }
   function handleCloseAddTaskModal() {
     setAddTaskModalOpen(false);
+  }
+  function handleCloseEditTaskModal() {
+    setEditTaskModalOpen(false);
   }
 
   const isWideVersion = useBreakpointValue({
@@ -90,7 +95,14 @@ export default function Dashboard() {
               </Td>
               <Td>
                 <Box>
-                  <Text fontWeight="bold">Tarefa</Text>
+                  <Button
+                    variant="link"
+                    onClick={() => {
+                      setIsInfoTaskModalOpen(true);
+                    }}
+                  >
+                    <Text fontWeight="bold">Tarefa</Text>
+                  </Button>
                   <Text fontSize="sm" color="gray.500">
                     Kevin
                   </Text>
@@ -112,7 +124,7 @@ export default function Dashboard() {
                     colorScheme="green"
                     leftIcon={<Icon as={RiEdit2Fill} />}
                     onClick={() => {
-                      setIsInfoTaskModalOpen(true);
+                      setEditTaskModalOpen(true);
                     }}
                   >
                     <HStack spacing="1">
@@ -141,6 +153,10 @@ export default function Dashboard() {
         <ModalAddTask
           isOpen={addTaskModalOpen}
           onClose={handleCloseAddTaskModal}
+        />
+        <ModalEditTask
+          isOpen={editTaskModalOpen}
+          onClose={handleCloseEditTaskModal}
         />
       </Box>
     </>

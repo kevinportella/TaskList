@@ -19,7 +19,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import * as yup from 'yup';
 
-import { useLoading } from '~/contexts/loading';
+import { useLoading } from '~/hooks/loading';
 
 const signUpFormSchema = yup.object({
   name: yup.string().required('Nome obrigatório.'),
