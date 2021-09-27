@@ -10,7 +10,7 @@ export function Profile({ showProfileData = true }: ProfileProps) {
   const { userFire } = useFirebase();
   return (
     <Flex align="center">
-      {userFire && (
+      {showProfileData && (
         <Box mr="4" textAlign="right">
           <Text>{userFire.displayName}</Text>
 

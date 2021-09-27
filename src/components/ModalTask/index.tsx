@@ -71,7 +71,9 @@ export function ModalTask({ isOpen, onClose }: ModalUsersProps) {
             </Text>
             <Stack>
               <Text fontSize="sm">Ultima atualização: Hoje</Text>
-              <Text fontSize="sm">Data de criação: Ontem</Text>
+              <Text fontSize="sm" color="gray.500">
+                Data de criação: Ontem
+              </Text>
             </Stack>
           </Stack>
         </ModalBody>

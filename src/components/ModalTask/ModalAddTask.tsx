@@ -36,11 +36,11 @@ export function ModalAddTask({ isOpen, onClose }: ModalUsersProps) {
     await db
       .collection('tasks')
       .add({
-        title,
-        status,
-        description,
-        createdAt: new Date(),
         completed: false,
+        createdAt: new Date(),
+        description,
+        status,
+        title,
       })
       .catch((error) => {
         console.error('Error adding document: ', error);

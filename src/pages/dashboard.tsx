@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { RiAddLine, RiEdit2Fill, RiDeleteBinFill } from 'react-icons/ri';
 
 import {
@@ -19,6 +19,7 @@ import {
   useBreakpointValue,
   Icon,
 } from '@chakra-ui/react';
+import firebase from 'firebase/app';
 
 import { Header } from '~/components/Header';
 import { ModalTask } from '~/components/ModalTask';
@@ -29,6 +30,7 @@ export default function Dashboard() {
   const [isInfoTaskModalOpen, setIsInfoTaskModalOpen] = useState(false);
   const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
   const [editTaskModalOpen, setEditTaskModalOpen] = useState(false);
+  const [task, setTask] = useState('');
 
   function handleCloseInfoUserModal() {
     setIsInfoTaskModalOpen(false);
@@ -44,6 +46,26 @@ export default function Dashboard() {
     base: false,
     lg: true,
   });
+
+  const getTasks = useCallback(async () => {
+    firebase
+      .firestore()
+      .collection('tasks')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.data();
+          console.log(doc.id, ' => ', doc.data());
+        });
+      })
+      .catch((error) => {
+        console.log('Error getting documents: ', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    getTasks();
+  }, [getTasks]);
 
   return (
     <>
