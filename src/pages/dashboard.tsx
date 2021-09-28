@@ -30,7 +30,7 @@ export default function Dashboard() {
   const [isInfoTaskModalOpen, setIsInfoTaskModalOpen] = useState(false);
   const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
   const [editTaskModalOpen, setEditTaskModalOpen] = useState(false);
-  const [task, setTask] = useState('');
+  // const [task, setTask] = useState('');
 
   function handleCloseInfoUserModal() {
     setIsInfoTaskModalOpen(false);
@@ -48,7 +48,7 @@ export default function Dashboard() {
   });
 
   const getTasks = useCallback(async () => {
-    firebase
+    await firebase
       .firestore()
       .collection('tasks')
       .get()
