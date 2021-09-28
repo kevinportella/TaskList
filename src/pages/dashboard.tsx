@@ -25,11 +25,13 @@ import { Header } from '~/components/Header';
 import { ModalTask } from '~/components/ModalTask';
 import { ModalAddTask } from '~/components/ModalTask/ModalAddTask';
 import { ModalEditTask } from '~/components/ModalTask/ModalEditTask';
+import { useFirebase } from '~/hooks/AuthContext';
 
 export default function Dashboard() {
   const [isInfoTaskModalOpen, setIsInfoTaskModalOpen] = useState(false);
   const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
   const [editTaskModalOpen, setEditTaskModalOpen] = useState(false);
+  const { userFire } = useFirebase();
 
   function handleCloseInfoUserModal() {
     setIsInfoTaskModalOpen(false);
@@ -67,7 +69,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <Header />
+      {userFire && <Header />}
 
       <Box
         bg="gray.800"
@@ -83,7 +85,6 @@ export default function Dashboard() {
             Tarefas
           </Heading>
           <Button
-            as="a"
             size="sm"
             fontSize="sm"
             colorScheme="green"

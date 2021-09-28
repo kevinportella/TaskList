@@ -8,6 +8,7 @@ interface ProfileProps {
 
 export function Profile({ showProfileData = true }: ProfileProps) {
   const { userFire } = useFirebase();
+
   return (
     <Flex align="center">
       {showProfileData && (
