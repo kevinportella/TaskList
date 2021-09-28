@@ -17,7 +17,8 @@
     // Is not enabled right now to avoid issues with the Next.js repo
     // "prettier",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:@next/eslint-plugin-next"
   ],
   "env": {
     "es6": true,
