@@ -116,7 +116,6 @@ export default function Dashboard() {
               <Td>
                 <Box>
                   <Button
-                    variant="link"
                     onClick={() => {
                       setIsInfoTaskModalOpen(true);
                     }}
