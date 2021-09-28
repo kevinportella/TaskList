@@ -30,7 +30,6 @@ export default function Dashboard() {
   const [isInfoTaskModalOpen, setIsInfoTaskModalOpen] = useState(false);
   const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
   const [editTaskModalOpen, setEditTaskModalOpen] = useState(false);
-  // const [task, setTask] = useState('');
 
   function handleCloseInfoUserModal() {
     setIsInfoTaskModalOpen(false);
@@ -55,11 +54,10 @@ export default function Dashboard() {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           doc.data();
-          console.log(doc.id, ' => ', doc.data());
         });
       })
       .catch((error) => {
-        console.log('Error getting documents: ', error);
+        error.message();
       });
   }, []);
 
