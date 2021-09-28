@@ -1,20 +1,17 @@
-import { useState } from 'react';
-
 import {
+  Badge,
+  Button,
+  Flex,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
-  Text,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Stack,
-  Flex,
-  Badge,
+  Text,
 } from '@chakra-ui/react';
-import firebase from 'firebase/app';
 
 interface ModalUsersProps {
   isOpen: boolean;
