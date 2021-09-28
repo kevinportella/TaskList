@@ -21,32 +21,10 @@ interface ModalUsersProps {
   onClose: () => void;
 }
 export function ModalTask({ isOpen, onClose }: ModalUsersProps) {
-  const [taskId, setTaskId] = useState('');
-
-  const db = firebase.firestore();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await db
-      .collection('tasks')
-      .doc(taskId)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          console.log('Document data:', doc.data());
-        } else {
-          console.log('No such document!');
-        }
-      })
-      .catch((error) => {
-        console.error('Error adding document: ', error);
-      });
-  };
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent onSubmit={handleSubmit} bg="gray.800">
+      <ModalContent bg="gray.800">
         <ModalHeader>
           <Stack>
             <Text fontSize="4xl">Título</Text>
